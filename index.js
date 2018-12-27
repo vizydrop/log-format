@@ -27,7 +27,7 @@ module.exports = (format, opts = {}) => {
         return info;
     });
 
-    const metaFormatter = winston.format((info) => {
+    const metaFormatter = format((info) => {
         if (!info.meta) {
             return info;
         }
