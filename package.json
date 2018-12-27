@@ -1,0 +1,23 @@
+{
+  "name": "@vizydrop/log-format",
+  "version": "1.0.0",
+  "description": "Predefined log formatter for vizydrop project",
+  "main": "index.js",
+  "scripts": {
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vizydrop/log-format.git"
+  },
+  "keywords": [
+    "vizydrop",
+    "log-format",
+    "winston"
+  ],
+  "author": "Vizydrop Team",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/vizydrop/log-format/issues"
+  },
+  "homepage": "https://github.com/vizydrop/log-format#readme"
+}
