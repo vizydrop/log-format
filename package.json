@@ -1,23 +1,25 @@
 {
-  "name": "@vizydrop/log-format",
+  "name": "@vizydrop/logger",
   "version": "1.0.0",
-  "description": "Predefined log formatter for vizydrop project",
+  "description": "Vizydrop predefined logger based on winston v3",
   "main": "index.js",
-  "scripts": {
-  },
+  "scripts": {},
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/vizydrop/log-format.git"
+    "url": "git+https://github.com/vizydrop/logger.git"
   },
   "keywords": [
     "vizydrop",
-    "log-format",
+    "logger",
     "winston"
   ],
   "author": "Vizydrop Team",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/vizydrop/log-format/issues"
+    "url": "https://github.com/vizydrop/logger/issues"
   },
-  "homepage": "https://github.com/vizydrop/log-format#readme"
+  "homepage": "https://github.com/vizydrop/logger#readme",
+  "dependencies": {
+    "winston": "3.1.0"
+  }
 }

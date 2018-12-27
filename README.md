@@ -1,13 +1,13 @@
-# log-format
+# logger
 
 ## Usage
 ```javascript
-const winston = require(`winston`);
-const logFormat = require(`@vizydrop/log-format`);
+const logger = require(`@vizydrop/logger`);
 
-const logger = winston.createLogger({
-     format: winston.format.combine(
-         ...logFormat(winston.format, {mode: process.env.NODE_ENV}),
-     ),
+const log = logger({
+    level: `info`,
+    mode: process.env.NODE_ENV
 });
+
+log.info(`message`);
 ```

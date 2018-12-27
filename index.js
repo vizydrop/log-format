@@ -1,9 +1,8 @@
-module.exports = (format, opts = {}) => {
-    if (typeof format !== `function`) {
-        throw new Error(`Format has to be a function. In case of use winston3 it can be obtained from winston.format`);
-    }
+const winston = require(`winston`);
 
-    const {mode} = opts;
+const createLogger = (opts = {}) => {
+    const {format} = winston;
+    const {mode, logLevel} = opts;
     const isProduction = mode === `production`;
     const isDevelopment = isProduction === false;
 
@@ -95,5 +94,16 @@ module.exports = (format, opts = {}) => {
         ];
     };
 
-    return getFormats();
+    return winston.createLogger({
+        format: winston.format.combine(...getFormats()),
+        level: logLevel || `info`,
+        transports: [
+            new winston.transports.Console({
+                handleExceptions: true,
+            }),
+        ],
+        exitOnError: false,
+    });
 };
+
+module.exports = {createLogger};
