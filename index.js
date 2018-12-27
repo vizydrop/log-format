@@ -2,7 +2,7 @@ const winston = require(`winston`);
 
 const createLogger = (opts = {}) => {
     const {format} = winston;
-    const {mode, logLevel} = opts;
+    const {mode, level} = opts;
     const isProduction = mode === `production`;
     const isDevelopment = isProduction === false;
 
@@ -96,7 +96,7 @@ const createLogger = (opts = {}) => {
 
     return winston.createLogger({
         format: winston.format.combine(...getFormats()),
-        level: logLevel || `info`,
+        level: level || `info`,
         transports: [
             new winston.transports.Console({
                 handleExceptions: true,
