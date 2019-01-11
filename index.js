@@ -1,8 +1,44 @@
 const winston = require(`winston`);
 
+const compact = (array) => array.filter((value) => value != null);
+
+const getCorrelationIdFieldName = (correlationIdConfig = {}) => correlationIdConfig.fieldName || `correlationId`;
+
+const createCorrelationIdFormatter = (correlationIdConfig = {}) => {
+    if (!correlationIdConfig.enabled) {
+        return null;
+    }
+
+    if (!correlationIdConfig.getCorrelationId) {
+        throw new Error(`getCorrelationId is required`);
+    }
+
+    if (typeof correlationIdConfig.getCorrelationId !== `function`) {
+        throw new Error(`getCorrelationId should be a function`);
+    }
+
+    const correlationIdName = correlationIdConfig.fieldName || `correlationId`;
+
+    return winston.format((info) => {
+        if (!info[correlationIdName]) {
+            const correlationId = correlationIdConfig.getCorrelationId();
+            if (correlationId) {
+                info[correlationIdName] = correlationId;
+            } else if (correlationIdConfig.emptyValue) {
+                info[correlationIdName] = correlationIdConfig.emptyValue;
+            }
+        }
+        return info;
+    })();
+};
+
 const createLogger = (opts = {}) => {
     const {format} = winston;
-    const {mode, level} = opts;
+    const {
+        mode,
+        level,
+        correlationId: correlationIdConfig = {},
+    } = opts;
     const isProduction = mode === `production`;
     const isDevelopment = isProduction === false;
 
@@ -54,7 +90,8 @@ const createLogger = (opts = {}) => {
 
     const getFormats = () => {
         if (isDevelopment) {
-            return [
+            return compact([
+                createCorrelationIdFormatter(correlationIdConfig),
                 messageErrorFormatter(),
                 format.colorize(),
                 format.timestamp(),
@@ -71,6 +108,15 @@ const createLogger = (opts = {}) => {
                     } = msg;
 
                     let formattedMessage = `${timestamp} - ${level}: ${message}`;
+                    if (correlationIdConfig.enabled) {
+                        const correlationIdFieldName = getCorrelationIdFieldName(correlationIdConfig);
+                        const correlationIdValue = rest[correlationIdFieldName];
+                        delete rest[correlationIdFieldName];
+                        if (correlationIdValue) {
+                            formattedMessage = `${timestamp} (${correlationIdValue}) - ${level}: ${message}`;
+                        }
+                    }
+
                     if (rest && Object.keys(rest).length > 0) {
                         formattedMessage = `${formattedMessage}\n${JSON.stringify(rest, null, 2)}`;
                     }
@@ -81,17 +127,18 @@ const createLogger = (opts = {}) => {
 
                     return formattedMessage;
                 }),
-            ];
+            ]);
         }
 
-        return [
+        return compact([
+            createCorrelationIdFormatter(correlationIdConfig),
             messageErrorFormatter(),
             format.timestamp(),
             format.splat(),
             metaFormatter(),
             format.json(),
             format.logstash(),
-        ];
+        ]);
     };
 
     return winston.createLogger({
