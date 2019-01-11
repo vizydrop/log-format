@@ -6,7 +6,13 @@ const logger = require(`@vizydrop/logger`);
 
 const log = logger({
     level: `info`,
-    mode: process.env.NODE_ENV
+    mode: process.env.NODE_ENV,
+    correlationId: {
+        enabled: true,
+        fieldName: `correlationId`, // default name is correlationId
+        getCorrelationId: () => `correlation-id-value`, // required
+        emptyValue: null, // used when correlation id is missing
+    }
 });
 
 log.info(`message`);
