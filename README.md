@@ -17,3 +17,6 @@ const log = logger({
 
 log.info(`message`);
 ```
+
+## Integrated with `request` like libs
+Has injected formatter that leaves only response body and status code from status code error due to possible security violation.

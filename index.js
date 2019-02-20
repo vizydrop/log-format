@@ -77,12 +77,23 @@ const createLogger = (opts = {}) => {
             .reduce((acc, value) => ({...acc, ...value}), data);
 
         if (error) {
-            patchedInfo = {
-                ...patchedInfo,
-                ...error,
-                stack: error.stack,
-                message: patchedInfo.message || error.message,
-            };
+            if (error.statusCode && error.response && error.request) {
+                // format http status code error due to security violation that headers w/ access token may be logged
+                patchedInfo = {
+                    ...patchedInfo,
+                    body: error.response.body,
+                    statusCode: error.response.statusCode,
+                    stack: error.stack,
+                    message: patchedInfo.message || error.message,
+                };
+            } else {
+                patchedInfo = {
+                    ...patchedInfo,
+                    ...error,
+                    stack: error.stack,
+                    message: patchedInfo.message || error.message,
+                };
+            }
         }
 
         return patchedInfo;
