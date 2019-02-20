@@ -42,6 +42,42 @@ const createLogger = (opts = {}) => {
     const isProduction = mode === `production`;
     const isDevelopment = isProduction === false;
 
+    const removeSensitiveInfo = (data) => {
+        if (!data) {
+            return data;
+        }
+
+        if (data.statusCode && data.response && data.response && data.options) {
+            delete data.options;
+            delete data.response;
+        }
+
+        return data;
+    };
+
+    const removeSensitiveDataFromInfoFormatter = format((info) => {
+        return removeSensitiveInfo(info);
+    });
+
+    const removeSensitiveDataFromMetaFormatter = format((info) => {
+        if (!info) {
+            return info;
+        }
+
+        const meta = info.meta;
+        if (!meta) {
+            return info;
+        }
+
+        if (Array.isArray(meta)) {
+            info.meta = meta.map(removeSensitiveInfo);
+        } else {
+            info.meta = removeSensitiveInfo(meta);
+        }
+
+        return info;
+    });
+
     const messageErrorFormatter = format((info) => {
         if (info.message instanceof Error) {
             info.message = {
@@ -77,23 +113,12 @@ const createLogger = (opts = {}) => {
             .reduce((acc, value) => ({...acc, ...value}), data);
 
         if (error) {
-            if (error.statusCode && error.response && error.request) {
-                // format http status code error due to security violation that headers w/ access token may be logged
-                patchedInfo = {
-                    ...patchedInfo,
-                    body: error.response.body,
-                    statusCode: error.response.statusCode,
-                    stack: error.stack,
-                    message: patchedInfo.message || error.message,
-                };
-            } else {
-                patchedInfo = {
-                    ...patchedInfo,
-                    ...error,
-                    stack: error.stack,
-                    message: patchedInfo.message || error.message,
-                };
-            }
+            patchedInfo = {
+                ...patchedInfo,
+                ...error,
+                stack: error.stack,
+                message: patchedInfo.message || error.message,
+            };
         }
 
         return patchedInfo;
@@ -103,10 +128,12 @@ const createLogger = (opts = {}) => {
         if (isDevelopment) {
             return compact([
                 createCorrelationIdFormatter(correlationIdConfig),
+                removeSensitiveDataFromInfoFormatter(),
                 messageErrorFormatter(),
                 format.colorize(),
                 format.timestamp(),
                 format.splat(),
+                removeSensitiveDataFromMetaFormatter(),
                 metaFormatter(),
                 format.simple(),
                 format.printf((msg) => {
@@ -143,9 +170,11 @@ const createLogger = (opts = {}) => {
 
         return compact([
             createCorrelationIdFormatter(correlationIdConfig),
+            removeSensitiveDataFromInfoFormatter(),
             messageErrorFormatter(),
             format.timestamp(),
             format.splat(),
+            removeSensitiveDataFromMetaFormatter(),
             metaFormatter(),
             format.json(),
             format.logstash(),
