@@ -48,8 +48,13 @@ const createLogger = (opts = {}) => {
         }
 
         if (data.statusCode && data.response && data.response && data.options) {
-            delete data.options;
-            delete data.response;
+            const {
+                options,
+                response,
+                ...newData
+            } = data;
+
+            return newData;
         }
 
         return data;
