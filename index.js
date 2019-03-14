@@ -47,7 +47,7 @@ const createLogger = (opts = {}) => {
             return data;
         }
 
-        if (data.statusCode && data.response && data.response && data.options) {
+        if (data.statusCode || data.status) {
             const {
                 options,
                 response,
