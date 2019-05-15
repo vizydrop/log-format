@@ -1,6 +1,6 @@
 {
   "name": "@vizydrop/logger",
-  "version": "1.3.3",
+  "version": "1.4.0",
   "description": "Vizydrop predefined logger based on winston v3",
   "main": "index.js",
   "scripts": {
@@ -25,6 +25,7 @@
     "winston": "3.1.0"
   },
   "devDependencies": {
+    "got": "9.6.0",
     "jest": "24.5.0",
     "nock": "10.0.6",
     "request-promise-native": "1.0.7"
