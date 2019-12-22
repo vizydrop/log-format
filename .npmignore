@@ -1,0 +1,8 @@
+node_modules
+.eslintrc.js
+prettier.config.js
+jest.config.js
+__tests__
+*.tests.js
+.idea
+.github
