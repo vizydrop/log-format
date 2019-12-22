@@ -381,14 +381,14 @@
   dependencies:
     "@types/yargs-parser" "*"
 
-"@vizydrop/eslint-config-vizydrop@^6.0.7":
-  version "6.0.7"
-  resolved "https://registry.yarnpkg.com/@vizydrop/eslint-config-vizydrop/-/eslint-config-vizydrop-6.0.7.tgz#96afced91a0b9911abb7fed6c402c634a4b64ae0"
-  integrity sha512-v+8HK+GBCBuRbs1PC3UqJn9Je3GE0BH0kpYfbJzDk1tpR3FuNaPSsx8gnY0VdhShj6c/ZLycyY8IIc8W7uEcvQ==
+"@vizydrop/eslint-config-vizydrop@^6.0.8":
+  version "6.0.8"
+  resolved "https://registry.yarnpkg.com/@vizydrop/eslint-config-vizydrop/-/eslint-config-vizydrop-6.0.8.tgz#b26b1f63f292e656daeb6787088e16376cdb945d"
+  integrity sha512-9o/mRhgFVmRt1CS1TzZrkaqfta6qkYD4yA+w6cpEvGA4/8wJk7H5+itJ93EG9hDrOzW9yH7+HMH13a0r8WhOkw==
   dependencies:
     babel-eslint "10.0.3"
     eslint-config-airbnb "18.0.1"
-    eslint-config-prettier "^6.3.0"
+    eslint-config-prettier "^6.7.0"
 
 abab@^2.0.0:
   version "2.0.3"
@@ -1274,7 +1274,7 @@ eslint-config-airbnb@18.0.1:
     object.assign "^4.1.0"
     object.entries "^1.1.0"
 
-eslint-config-prettier@^6.3.0:
+eslint-config-prettier@^6.7.0:
   version "6.7.0"
   resolved "https://registry.yarnpkg.com/eslint-config-prettier/-/eslint-config-prettier-6.7.0.tgz#9a876952e12df2b284adbd3440994bf1f39dfbb9"
   integrity sha512-FamQVKM3jjUVwhG4hEMnbtsq7xOIDm+SY5iBPfR8gKsJoAB2IQnNF+bk1+8Fy44Nq7PPJaLvkRxILYdJWoguKQ==
@@ -1396,6 +1396,11 @@ eslint-plugin-node@^10.0.0:
     minimatch "^3.0.4"
     resolve "^1.10.1"
     semver "^6.1.0"
+
+eslint-plugin-promise@^4.2.1:
+  version "4.2.1"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-promise/-/eslint-plugin-promise-4.2.1.tgz#845fd8b2260ad8f82564c1222fce44ad71d9418a"
+  integrity sha512-VoM09vT7bfA7D+upt+FjeBO5eHIJQBUWki1aPvB+vbNiHS3+oGIJGIeyBtKQTME6UPXXy3vV07OL1tHd3ANuDw==
 
 eslint-plugin-react-hooks@^2.0.1:
   version "2.3.0"
