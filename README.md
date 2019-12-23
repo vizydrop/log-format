@@ -1,6 +1,7 @@
 # logger
 
 ## Usage
+
 ```javascript
 const logger = require(`@vizydrop/logger`);
 
@@ -12,11 +13,9 @@ const log = logger({
         fieldName: `correlationId`, // default name is correlationId
         getCorrelationId: () => `correlation-id-value`, // required
         emptyValue: null, // used when correlation id is missing
-    }
+    },
+    additionalFields: {field1: `value`},
 });
 
 log.info(`message`);
 ```
-
-## Integrated with `request` like libs
-Has injected formatter that leaves only response body and status code from status code error due to possible security violation.
