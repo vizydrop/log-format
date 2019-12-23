@@ -1,3 +1,7 @@
+### v 1.8.2
+
+Own implementation of start timer
+
 ### v 1.8.1
 
 fix dependencies
