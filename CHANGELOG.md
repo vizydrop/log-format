@@ -1,3 +1,7 @@
+### v 1.9.0
+
+Add express and koa request logger
+
 ### v 1.8.2
 
 Own implementation of start timer
