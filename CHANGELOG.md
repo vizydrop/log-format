@@ -1,3 +1,7 @@
+### v 1.9.2
+
+Log status code as separate field
+
 ### v 1.9.0
 
 Add express and koa request logger
