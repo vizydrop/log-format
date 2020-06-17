@@ -1,3 +1,7 @@
+### v 1.9.3
+
+stringify errno field of Errors to guarantee type consistency
+
 ### v 1.9.2
 
 Log status code as separate field
